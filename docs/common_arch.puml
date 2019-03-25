@@ -1,0 +1,19 @@
+@startuml
+
+package "Apps" {
+    [laptop control]
+}
+
+package "Plugins" {
+    package "Cpu control" {
+        [cpu thermal]
+        [cpu clocks]
+        [cpu power]
+    }
+}
+
+package "Libs" {
+    [core]
+    [utils]
+}
+@enduml
