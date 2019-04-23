@@ -12,8 +12,10 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
-[workspace]
+[package]
+name = "laptop-control"
+version = "0.1.0"
+authors = ["Boris Vinogradov <no111u3@gmail.com>"]
+edition = "2018"
 
-members = [
-    "laptop-control"
-]
+[dependencies]
