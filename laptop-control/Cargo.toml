@@ -19,3 +19,4 @@ authors = ["Boris Vinogradov <no111u3@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+cpu-control = { path = "../cpu-control" }
