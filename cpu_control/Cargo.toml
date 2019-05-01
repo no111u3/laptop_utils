@@ -7,3 +7,5 @@ edition = "2018"
 [dependencies]
 cpu_sysfs = { path = "cpu_sysfs" }
 cpu_thermal = { path = "cpu_thermal" }
+cpu_clocks =  { path = "cpu_clocks" }
+cpu_power = { path = "cpu_power" }
