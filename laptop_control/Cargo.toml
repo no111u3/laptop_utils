@@ -13,10 +13,10 @@
 #limitations under the License.
 
 [package]
-name = "laptop-control"
+name = "laptop_control"
 version = "0.1.0"
 authors = ["Boris Vinogradov <no111u3@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-cpu-control = { path = "../cpu-control" }
+cpu_control = { path = "../cpu_control" }

@@ -15,6 +15,6 @@
 [workspace]
 
 members = [
-    "laptop-control",
-    "cpu-control"
+    "laptop_control",
+    "cpu_control"
 ]

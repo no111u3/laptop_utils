@@ -1,0 +1,9 @@
+[package]
+name = "cpu_control"
+version = "0.1.0"
+authors = ["Boris Vinogradov <no111u3@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+cpu_sysfs = { path = "cpu_sysfs" }
+cpu_thermal = { path = "cpu_thermal" }
