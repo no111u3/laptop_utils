@@ -12,6 +12,10 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
+use cpu_control;
+
 fn main() {
     println!("laptop-control utility");
+
+    cpu_control::init();
 }
