@@ -163,4 +163,23 @@ pub fn init() {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
+    #[test]
+    fn package_type() {
+        let thermal = Thermal::new();
+
+        assert_eq!(thermal.cpu.package().is_none(), false);
+    }
+
+    #[test]
+    fn core_type() {
+        let thermal = Thermal::new();
+
+        let cores = thermal.cpu.cores();
+        
+        for core in cores {
+            assert_eq!(core.is_none(), false);
+        }
+    }
 }
