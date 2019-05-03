@@ -17,8 +17,8 @@ impl Thermal {
 
 #[derive(Debug)]
 pub struct Cpu {
-    pub package: Option<Package>,
-    pub cores: Rc<Vec<Option<Core>>>,
+    package: Option<Package>,
+    cores: Rc<Vec<Option<Core>>>,
 }
 
 impl Cpu {
@@ -52,14 +52,22 @@ impl Cpu {
             cores: Rc::new(cores),
         }
     }
+
+    pub fn package(&self) -> Option<&Package> {
+        self.package.as_ref()
+    }
+
+    pub fn cores(&self) -> Vec<Option<&Core>> {
+        self.cores.iter().map(|x| x.as_ref()).collect()
+    }
 }
 
 #[derive(Debug)]
 pub struct Package {
-    pub current: Option<Subfeature>,
-    pub max: Option<Subfeature>,
-    pub crit: Option<Subfeature>,
-    pub alarm: Option<Subfeature>,
+    current: Option<Subfeature>,
+    max: Option<Subfeature>,
+    crit: Option<Subfeature>,
+    alarm: Option<Subfeature>,
 }
 
 impl Package {
@@ -73,15 +81,31 @@ impl Package {
             alarm: alarm,
         }
     }
+
+    pub fn current(&self) -> Option<&Subfeature> {
+        self.current.as_ref()
+    }
+
+    pub fn max(&self) -> Option<&Subfeature> {
+        self.max.as_ref()
+    }
+
+    pub fn crit(&self) -> Option<&Subfeature> {
+        self.crit.as_ref()
+    }
+
+    pub fn alarm(&self) -> Option<&Subfeature> {
+        self.alarm.as_ref()
+    }
 }
 
 #[derive(Debug)]
 pub struct Core {
     pub id: u8,
-    pub current: Option<Subfeature>,
-    pub max: Option<Subfeature>,
-    pub crit: Option<Subfeature>,
-    pub alarm: Option<Subfeature>,
+    current: Option<Subfeature>,
+    max: Option<Subfeature>,
+    crit: Option<Subfeature>,
+    alarm: Option<Subfeature>,
 }
 
 impl Core {
@@ -95,6 +119,22 @@ impl Core {
             crit: crit,
             alarm: alarm,
         }
+    }
+
+    pub fn current(&self) -> Option<&Subfeature> {
+        self.current.as_ref()
+    }
+
+    pub fn max(&self) -> Option<&Subfeature> {
+        self.max.as_ref()
+    }
+
+    pub fn crit(&self) -> Option<&Subfeature> {
+        self.crit.as_ref()
+    }
+
+    pub fn alarm(&self) -> Option<&Subfeature> {
+        self.alarm.as_ref()
     }
 }
 
@@ -112,15 +152,13 @@ fn parse_subfeatures(feature: Feature)
 pub fn init() {
     let thermal = Thermal::new();
     
-    let cores = thermal.cpu.cores.iter();
+    let cores = thermal.cpu.cores();
     
     for core in cores {
-        println!("Core #{} - {}", core.as_ref().unwrap().id, core.as_ref().unwrap().current.as_ref().unwrap().get_value().unwrap());
+        println!("Core #{} - {}", core.unwrap().id, core.unwrap().current().unwrap().get_value().unwrap());
     }
 
-    let package = &thermal.cpu.clone().package;
-
-    println!("Package - {}", package.as_ref().unwrap().current.as_ref().unwrap().get_value().unwrap());
+    println!("Package - {}", thermal.cpu.package().unwrap().current().unwrap().get_value().unwrap());
 }
 
 #[cfg(test)]
