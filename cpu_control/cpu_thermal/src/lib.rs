@@ -173,6 +173,18 @@ mod tests {
     }
 
     #[test]
+    fn package_thermals() {
+        let thermal = Thermal::new();
+
+        if thermal.cpu.package().is_some() {
+            assert_eq!(thermal.cpu.package().unwrap().current().is_some(), true);
+            assert_eq!(thermal.cpu.package().unwrap().crit().is_some(), true);
+            assert_eq!(thermal.cpu.package().unwrap().max().is_some(), true);
+            assert_eq!(thermal.cpu.package().unwrap().alarm().is_some(), true);
+        }
+    }
+
+    #[test]
     fn core_type() {
         let thermal = Thermal::new();
 
@@ -180,6 +192,22 @@ mod tests {
         
         for core in cores {
             assert_eq!(core.is_none(), false);
+        }
+    }
+
+    #[test]
+    fn core_thermals() {
+        let thermal = Thermal::new();
+
+        let cores = thermal.cpu.cores();
+        
+        for core in cores {
+            if core.is_some() {
+                assert_eq!(core.unwrap().current().is_some(), true);
+                assert_eq!(core.unwrap().crit().is_some(), true);
+                assert_eq!(core.unwrap().max().is_some(), true);
+                assert_eq!(core.unwrap().alarm().is_some(), true);
+            }
         }
     }
 }
