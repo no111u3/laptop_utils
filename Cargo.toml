@@ -16,5 +16,6 @@
 
 members = [
     "laptop_control",
+    "laptop_update",
     "cpu_control"
 ]
