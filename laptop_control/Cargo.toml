@@ -20,3 +20,4 @@ edition = "2018"
 
 [dependencies]
 cpu_control = { path = "../cpu_control" }
+clap = "2.33.0"
