@@ -15,7 +15,7 @@
 use cpu_control;
 
 fn main() {
-    println!("laptop-control utility");
+    println!("laptop_control utility");
 
     cpu_control::init();
 }
