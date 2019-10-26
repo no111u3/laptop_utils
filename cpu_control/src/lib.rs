@@ -5,5 +5,4 @@ pub fn init() {
 }
 
 #[cfg(test)]
-mod tests {
-}
+mod tests {}

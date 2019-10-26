@@ -1,4 +1,4 @@
-use sensors::{Sensors, Feature, Subfeature, SubfeatureType};
+use sensors::{Feature, Sensors, Subfeature, SubfeatureType};
 
 use std::rc::Rc;
 
@@ -39,14 +39,13 @@ impl Cpu {
                         "Core" => {
                             cores.push(Some(Core::new(feature, package_name[1])));
                         }
-                        _ => {
-                        }
+                        _ => {}
                     }
                 }
                 break;
             }
         }
-    
+
         Cpu {
             package: package,
             cores: Rc::new(cores),
@@ -73,7 +72,7 @@ pub struct Package {
 impl Package {
     pub fn new(feature: Feature) -> Package {
         let (current, max, crit, alarm) = parse_subfeatures(feature);
-    
+
         Package {
             current: current,
             max: max,
@@ -138,9 +137,14 @@ impl Core {
     }
 }
 
-fn parse_subfeatures(feature: Feature)
-    -> (Option<Subfeature>, Option<Subfeature>, Option<Subfeature>, Option<Subfeature>)
-{
+fn parse_subfeatures(
+    feature: Feature,
+) -> (
+    Option<Subfeature>,
+    Option<Subfeature>,
+    Option<Subfeature>,
+    Option<Subfeature>,
+) {
     (
         feature.get_subfeature(SubfeatureType::SENSORS_SUBFEATURE_TEMP_INPUT),
         feature.get_subfeature(SubfeatureType::SENSORS_SUBFEATURE_TEMP_MAX),
@@ -151,14 +155,28 @@ fn parse_subfeatures(feature: Feature)
 
 pub fn init() {
     let thermal = Thermal::new();
-    
+
     let cores = thermal.cpu.cores();
-    
+
     for core in cores {
-        println!("Core #{} - {}", core.unwrap().id, core.unwrap().current().unwrap().get_value().unwrap());
+        println!(
+            "Core #{} - {}",
+            core.unwrap().id,
+            core.unwrap().current().unwrap().get_value().unwrap()
+        );
     }
 
-    println!("Package - {}", thermal.cpu.package().unwrap().current().unwrap().get_value().unwrap());
+    println!(
+        "Package - {}",
+        thermal
+            .cpu
+            .package()
+            .unwrap()
+            .current()
+            .unwrap()
+            .get_value()
+            .unwrap()
+    );
 }
 
 #[cfg(test)]
@@ -189,7 +207,7 @@ mod tests {
         let thermal = Thermal::new();
 
         let cores = thermal.cpu.cores();
-        
+
         for core in cores {
             assert_eq!(core.is_none(), false);
         }
@@ -200,7 +218,7 @@ mod tests {
         let thermal = Thermal::new();
 
         let cores = thermal.cpu.cores();
-        
+
         for core in cores {
             if core.is_some() {
                 assert_eq!(core.unwrap().current().is_some(), true);
